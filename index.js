@@ -23,7 +23,7 @@ app.use(
 );
 
 const redisClient = redis.createClient({
-  host: "rediss://red-cjqd93u1208c73avibig:hv2ruyv7ZSuDYNRCBK8lUuC6JnJropaa@oregon-redis.render.com:6379",
+  host: process.env.REDIS_URL,
 });
 
 redisClient.connect().catch(console.error);
