@@ -7,7 +7,7 @@ const cookieParser = require("cookie-parser");
 const userRouter = require("./userRouter");
 const bookingRouter = require("./bookingRouter");
 const redis = require("redis");
-const connectRedis = require("connect-redis");
+const RedisStore = require("connect-redis").default;
 // create redis client
 
 require("dotenv").config();
@@ -22,16 +22,13 @@ app.use(
   })
 );
 
-const RedisStore = connectRedis(session);
 const redisClient = redis.createClient({
   host: "redis://red-cjqd93u1208c73avibig:6379",
 });
 
-redisClient.on("error", function (err) {
-  console.log("Could not establish a connection with redis. " + err);
-});
-redisClient.on("connect", function (err) {
-  console.log("Connected to redis successfully");
+redisClient.connect().catch(console.error);
+let redisStore = new RedisStore({
+  client: redisClient,
 });
 
 app.use(express.json());
@@ -41,7 +38,7 @@ app.use(
     secret: "935233349324x92",
     saveUninitialized: true,
     resave: true,
-    store: new RedisStore({ client: redisClient }),
+    store: redisStore,
   })
 );
 
