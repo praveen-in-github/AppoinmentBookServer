@@ -24,7 +24,7 @@ app.use(
 
 const RedisStore = connectRedis(session);
 const redisClient = redis.createClient({
-  host: "localhost",
+  host: "redis://red-cjqd93u1208c73avibig:6379",
 });
 
 redisClient.on("error", function (err) {
