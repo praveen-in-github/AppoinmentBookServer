@@ -6,7 +6,7 @@ const session = require("express-session");
 const cookieParser = require("cookie-parser");
 const userRouter = require("./userRouter");
 const bookingRouter = require("./bookingRouter");
-
+var RedisStore = require("connect-redis")(session);
 require("dotenv").config();
 
 const app = express();
@@ -20,7 +20,16 @@ app.use(
 );
 app.use(express.json());
 app.use(cookieParser());
-app.use(session({ secret: "935233349324x92" }));
+app.use(
+  session({
+    secret: "935233349324x92",
+    saveUninitialized: true,
+    resave: true,
+    store: new RedisStore({
+      url: process.env.REDIS_URL,
+    }),
+  })
+);
 
 let uri = process.env.ATLAS_URI;
 mongoose.connect(uri, { useNewUrlParser: true });
