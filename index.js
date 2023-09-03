@@ -6,7 +6,12 @@ const session = require("express-session");
 const cookieParser = require("cookie-parser");
 const userRouter = require("./userRouter");
 const bookingRouter = require("./bookingRouter");
-var RedisStore = require("connect-redis")(session);
+import redis from "redis";
+
+// create redis client
+const client = redis.createClient({
+  host: process.env.REDIS_URL,
+});
 require("dotenv").config();
 
 const app = express();
