@@ -6,8 +6,7 @@ const session = require("express-session");
 const cookieParser = require("cookie-parser");
 const userRouter = require("./userRouter");
 const bookingRouter = require("./bookingRouter");
-import redis from "redis";
-
+const connectRedis = require("connect-redis");
 // create redis client
 const client = redis.createClient({
   host: process.env.REDIS_URL,
@@ -23,6 +22,19 @@ app.use(
     exposedHeaders: "set-cookie",
   })
 );
+
+const RedisStore = connectRedis(session);
+const redisClient = redis.createClient({
+  host: "localhost",
+});
+
+redisClient.on("error", function (err) {
+  console.log("Could not establish a connection with redis. " + err);
+});
+redisClient.on("connect", function (err) {
+  console.log("Connected to redis successfully");
+});
+
 app.use(express.json());
 app.use(cookieParser());
 app.use(
@@ -30,9 +42,7 @@ app.use(
     secret: "935233349324x92",
     saveUninitialized: true,
     resave: true,
-    store: new RedisStore({
-      url: process.env.REDIS_URL,
-    }),
+    store: new RedisStore({ client: redisClient }),
   })
 );
 
