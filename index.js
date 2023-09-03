@@ -6,11 +6,10 @@ const session = require("express-session");
 const cookieParser = require("cookie-parser");
 const userRouter = require("./userRouter");
 const bookingRouter = require("./bookingRouter");
+const redis = require("redis");
 const connectRedis = require("connect-redis");
 // create redis client
-const client = redis.createClient({
-  host: process.env.REDIS_URL,
-});
+
 require("dotenv").config();
 
 const app = express();
