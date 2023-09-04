@@ -24,7 +24,7 @@ app.use(
 );
 
 const redisClient = redis.createClient({
-  url: "rediss://red-cjqd93u1208c73avibig:hv2ruyv7ZSuDYNRCBK8lUuC6JnJropaa@oregon-redis.render.com:6379",
+  url: "redis://red-cjqd93u1208c73avibig:6379",
 });
 
 redisClient.connect().catch(console.error);
