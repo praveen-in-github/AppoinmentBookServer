@@ -49,9 +49,11 @@ router.get("/sendOtp/:email", (req, res) => {
 
   transporter.sendMail(mailData, function (err, info) {
     if (err) {
-      res.sendStatus(500).send("Mail Error");
+      res.send("Mail Error");
       console.log(err);
     } else {
+      console.log(res.statusCode);
+      console.log(res.body);
       console.log("Mail Sent");
       res.sendStatus(200).send("Check Mail");
     }
@@ -79,20 +81,19 @@ router.post("/verifyOtp", async (req, res) => {
       console.log(req.session.user);
       console.log(res.statusCode);
       console.log(res.body);
-      //res.sendStatus(200).send("Verified");
+      res.status(200).send("Verified");
     } catch (err) {
       console.log(err);
       console.log(res.statusCode);
       console.log(res.body);
-      //res.sendStatus(500).send("Internal Server Error")
+      res.status(500).send("Internal Server Error");
     }
     return;
   } else {
     console.log("OTP MisMatch");
     console.log(res.statusCode);
     console.log(res.body);
-
-    // res.sendStatus(204).send("InValid Otp");
+    res.status(204).send("InValid Otp");
     return;
   }
 });

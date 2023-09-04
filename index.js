@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
@@ -10,7 +11,6 @@ const redis = require("redis");
 const RedisStore = require("connect-redis").default;
 // create redis client
 
-require("dotenv").config();
 const app = express();
 
 app.use(
@@ -24,12 +24,16 @@ app.use(
 );
 
 const redisClient = redis.createClient({
-  url: "redis://red-cjqd93u1208c73avibig:6379",
+  url: "rediss://red-cjqd93u1208c73avibig:hv2ruyv7ZSuDYNRCBK8lUuC6JnJropaa@oregon-redis.render.com:6379",
 });
 
 redisClient.connect().catch(console.error);
 let redisStore = new RedisStore({
   client: redisClient,
+});
+
+redisClient.on("error", (err) => {
+  console.log(err);
 });
 
 app.use(express.json());
