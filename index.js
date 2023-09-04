@@ -17,7 +17,7 @@ const app = express();
 app.use(
   cors({
     origin:
-      "https://64f4e88a8db6114c620607d4--extraordinary-starlight-2c5bda.netlify.app/",
+      "https://64f4e88a8db6114c620607d4--extraordinary-starlight-2c5bda.netlify.app",
     credentials: true,
     exposedHeaders: "set-cookie",
   })
