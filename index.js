@@ -11,13 +11,12 @@ const RedisStore = require("connect-redis").default;
 // create redis client
 
 require("dotenv").config();
-
 const app = express();
 
 app.use(
   cors({
     origin:
-      "https://64f4e88a8db6114c620607d4--extraordinary-starlight-2c5bda.netlify.app",
+      "https://64f57502dbe81d0d5df45b2e--extraordinary-starlight-2c5bda.netlify.app",
     methods: ["GET", "POST", "PATCH", "DELETE", "PUT"],
     credentials: true,
     exposedHeaders: "set-cookie",
