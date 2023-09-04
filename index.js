@@ -15,8 +15,7 @@ const app = express();
 
 app.use(
   cors({
-    origin:
-      "https://64f57502dbe81d0d5df45b2e--extraordinary-starlight-2c5bda.netlify.app",
+    origin: process.env.AllowedOrigin,
     methods: ["GET", "POST", "PATCH", "DELETE", "PUT"],
     credentials: true,
     exposedHeaders: ["Content-Length", "X-Foo", "X-Bar", "set-cookie"],
@@ -52,7 +51,6 @@ app.use(
     },
   })
 );
-
 app.enable("trust proxy");
 
 let uri = process.env.ATLAS_URI;
