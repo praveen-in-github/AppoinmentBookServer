@@ -77,15 +77,22 @@ router.post("/verifyOtp", async (req, res) => {
       console.log(req.session.email);
       req.session.user = user;
       console.log(req.session.user);
-      res.sendStatus(200).send("Verified");
+      console.log(res.statusCode);
+      console.log(res.body);
+      //res.sendStatus(200).send("Verified");
     } catch (err) {
       console.log(err);
-      res.send("Internal Server Occured");
+      console.log(res.statusCode);
+      console.log(res.body);
+      //res.sendStatus(500).send("Internal Server Error")
     }
     return;
   } else {
     console.log("OTP MisMatch");
-    res.sendStatus(204).send("InValid Otp");
+    console.log(res.statusCode);
+    console.log(res.body);
+
+    // res.sendStatus(204).send("InValid Otp");
     return;
   }
 });
