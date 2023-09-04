@@ -49,7 +49,7 @@ app.use(
       secret: process.env.COOKIE_SECRET,
       secure: process.env.NODE_ENV === "production",
       httpOnly: process.env.NODE_ENV === "production",
-      sameSite: none,
+      sameSite: "none",
     },
   })
 );
