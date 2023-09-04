@@ -74,13 +74,18 @@ router.post("/verifyOtp", async (req, res) => {
         user = await User.create({ email: req.session.email });
       }
       console.log(user);
+      console.log(req.session.email);
       req.session.user = user;
-      res.sendStatus(200).send("Verified");
+      console.log(req.session.user);
+      //  res.sendStatus(200).send("Verified");
     } catch (err) {
-      res.sendStatus(500).send("Internal Server Occured");
+      console.log(err);
+      //res.sendStatus(500).send("Internal Server Occured");
     }
   } else {
     res.sendStatus(204).send("InValid Otp");
+    return;
   }
+  res.sendStatus(200);
 });
 module.exports = router;
