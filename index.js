@@ -23,8 +23,7 @@ app.use(
 );
 
 const redisClient = redis.createClient({
-  host: "redis://red-cjqd93u1208c73avibig",
-  port: "6379",
+  url: "redis://red-cjqd93u1208c73avibig:6379",
 });
 
 redisClient.connect().catch(console.error);
