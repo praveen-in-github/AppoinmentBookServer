@@ -56,7 +56,7 @@ connection.once("open", () => {
 app.use("/user", userRouter);
 app.use("/bookings", bookingRouter);
 
-let port = process.env.PORT || 5000;
+let port = process.env.PORT || 7000;
 
 app.listen(port, () => {
   console.log("Sever running at Port " + port);

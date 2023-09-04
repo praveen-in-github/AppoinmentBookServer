@@ -22,7 +22,7 @@ router.post("/create", protectedRoute, (req, res) => {
     .then(() => res.json("Booking Created"))
     .catch((err) => {
       console.log(err);
-      res.status(400).json("Error " + err);
+      res.sendStatus(400).json("Error " + err);
     });
 });
 
@@ -38,10 +38,10 @@ router.get("/existingByDate/:date", (req, res) => {
   })
 
     .then((docs) => {
-      res.status(200).send(docs);
+      res.sendStatus(200).send(docs);
       console.log(docs);
     })
-    .catch((err) => res.status(500).send(err));
+    .catch((err) => res.sendStatus(500).send(err));
 });
 router.get("/filter/:date", async (req, res) => {
   console.log(req.params.date);
@@ -68,27 +68,27 @@ router.get("/filter/:date", async (req, res) => {
     },
   ])
     .then((docs) => {
-      res.status(200).send(docs);
+      res.sendStatus(200).send(docs);
       console.log("docs is " + docs);
     })
-    .catch((err) => res.status(500).send("Some Internal Error Occured"));
+    .catch((err) => res.sendStatus(500).send("Some Internal Error Occured"));
 });
 router.get("/", protectedRoute, (req, res) => {
   AppointmentBookings.find({ UserId: req.session.user._id })
     .then((docs) => {
       console.log(docs);
-      res.status(200).send(docs);
+      res.sendStatus(200).send(docs);
       console.log(docs);
     })
-    .catch((err) => res.status(500).send("Some Internal Error Occured"));
+    .catch((err) => res.sendStatus(500).send("Some Internal Error Occured"));
 });
 
 router.delete("/:id", protectedRoute, (req, res) => {
   AppointmentBookings.findByIdAndDelete(req.params.id)
     .then(() => {
       console.log(req.params.id);
-      res.send("Appointment Cancelled");
+      res.sendStatus(204).send("Appointment Cancelled");
     })
-    .catch((err) => res.status(500).send(err));
+    .catch((err) => res.sendStatus(500).send(err));
 });
 module.exports = router;

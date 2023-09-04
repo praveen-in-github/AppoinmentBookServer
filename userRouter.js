@@ -49,20 +49,20 @@ router.get("/sendOtp/:email", (req, res) => {
 
   transporter.sendMail(mailData, function (err, info) {
     if (err) {
-      res.status(500).send("Mail Error");
+      res.sendStatus(500).send("Mail Error");
       console.log(err);
     } else {
       console.log("Mail Sent");
-      res.status(200).send("Check Mail");
+      res.sendStatus(200).send("Check Mail");
     }
   });
-  res.status(200).send("Mail Sent");
+  res.sendStatus(200).send("Mail Sent");
 });
 
 router.patch("/logout", (req, res) => {
   req.session.destroy();
   console.log("LoggedOut");
-  res.status(200).send("Success");
+  res.sendStatus(200).send("Success");
 });
 router.post("/verifyOtp", async (req, res) => {
   console.log("Stored OTP is " + req.session.generated_otp);
@@ -75,12 +75,12 @@ router.post("/verifyOtp", async (req, res) => {
       }
       console.log(user);
       req.session.user = user;
-      res.status(200).send("Verified");
+      res.sendStatus(200).send("Verified");
     } catch (err) {
-      res.status(500).send("Internal Server Occured");
+      res.sendStatus(500).send("Internal Server Occured");
     }
   } else {
-    res.status(204).send("InValid Otp");
+    res.sendStatus(204).send("InValid Otp");
   }
 });
 module.exports = router;
