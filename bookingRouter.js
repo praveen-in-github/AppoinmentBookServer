@@ -54,24 +54,31 @@ router.get("/filter/:date", async (req, res) => {
   ed.setMinutes(59);
   ed.setDate(31);
   console.log(sd.toString(), " ", ed.toString());
-  AppointmentBookings.aggregate([
-    { $match: { AppointmentStartDate: { $gt: sd, $lt: ed } } },
-    {
-      $group: {
-        _id: {
-          $dateToString: { format: "%Y-%m-%d", date: "$AppointmentStartDate" },
-        },
-        slotTimes: {
-          $push: { start: "$AppointmentStartDate", end: "$AppointmentEndDate" },
+  try {
+    const docs = await AppointmentBookings.aggregate([
+      { $match: { AppointmentStartDate: { $gt: sd, $lt: ed } } },
+      {
+        $group: {
+          _id: {
+            $dateToString: {
+              format: "%Y-%m-%d",
+              date: "$AppointmentStartDate",
+            },
+          },
+          slotTimes: {
+            $push: {
+              start: "$AppointmentStartDate",
+              end: "$AppointmentEndDate",
+            },
+          },
         },
       },
-    },
-  ])
-    .then((docs) => {
-      res.sendStatus(200).send(docs);
-      console.log("docs is " + docs);
-    })
-    .catch((err) => res.sendStatus(500).send("Some Internal Error Occured"));
+    ]);
+    res.sendStatus(200).send(docs);
+    return;
+  } catch (err) {
+    res.sendStatus(500).send("Some Internal Error Occured");
+  }
 });
 router.get("/", protectedRoute, (req, res) => {
   AppointmentBookings.find({ UserId: req.session.user._id })
