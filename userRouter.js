@@ -56,7 +56,6 @@ router.get("/sendOtp/:email", (req, res) => {
       res.sendStatus(200).send("Check Mail");
     }
   });
-  res.sendStatus(200).send("Mail Sent");
 });
 
 router.patch("/logout", (req, res) => {
