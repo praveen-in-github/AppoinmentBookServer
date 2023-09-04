@@ -70,7 +70,7 @@ router.post("/verifyOtp", async (req, res) => {
     try {
       let user;
       user = await User.find({ email: req.session.email });
-      if (!user) {
+      if (user.length == 0) {
         user = await User.create({ email: req.session.email });
       }
       console.log(user);
