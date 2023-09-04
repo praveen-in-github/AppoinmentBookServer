@@ -19,8 +19,7 @@ app.use(
       "https://64f57502dbe81d0d5df45b2e--extraordinary-starlight-2c5bda.netlify.app",
     methods: ["GET", "POST", "PATCH", "DELETE", "PUT"],
     credentials: true,
-    allowedHeaders:
-      "Origin, X-Requested-With, Content-Type, Accept, authorization",
+    exposedHeaders: ["Content-Length", "X-Foo", "X-Bar", "set-cookie"],
   })
 );
 
