@@ -53,6 +53,8 @@ app.use(
   })
 );
 
+app.enable("trust proxy");
+
 let uri = process.env.ATLAS_URI;
 mongoose.connect(uri, { useNewUrlParser: true });
 
