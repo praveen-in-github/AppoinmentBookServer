@@ -68,9 +68,10 @@ router.post("/verifyOtp", async (req, res) => {
   console.log("Body otp is" + req.body.otp);
   if (req.session.generated_otp == req.body.otp) {
     try {
-      const user = await User.find({ email: req.session.email });
+      let user;
+      user = await User.find({ email: req.session.email });
       if (!user) {
-        const user = await User.create({ email: req.session.email });
+        user = await User.create({ email: req.session.email });
       }
       console.log(user);
       req.session.user = user;
