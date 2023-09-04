@@ -19,12 +19,13 @@ app.use(
       "https://64f57502dbe81d0d5df45b2e--extraordinary-starlight-2c5bda.netlify.app",
     methods: ["GET", "POST", "PATCH", "DELETE", "PUT"],
     credentials: true,
-    exposedHeaders: "set-cookie",
+    allowedHeaders:
+      "Origin, X-Requested-With, Content-Type, Accept, authorization",
   })
 );
 
 const redisClient = redis.createClient({
-  url: "redis://red-cjqd93u1208c73avibig:6379",
+  url: process.env.REDIS_URL,
 });
 
 redisClient.connect().catch(console.error);
@@ -40,10 +41,16 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(
   session({
-    secret: "935233349324x92",
+    secret: process.env.SESSION_SECRET,
     saveUninitialized: true,
     resave: true,
     store: redisStore,
+    cookie: {
+      secret: process.env.COOKIE_SECRET,
+      secure: process.env.NODE_ENV === "production",
+      httpOnly: process.env.NODE_ENV === "production",
+      sameSite: none,
+    },
   })
 );
 

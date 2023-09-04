@@ -93,7 +93,7 @@ router.post("/verifyOtp", async (req, res) => {
     console.log("OTP MisMatch");
     console.log(res.statusCode);
     console.log(res.body);
-    res.status(204).send("InValid Otp");
+    res.status(204).send("Invalid Otp");
     return;
   }
 });
