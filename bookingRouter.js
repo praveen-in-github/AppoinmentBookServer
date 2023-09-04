@@ -84,7 +84,7 @@ router.get("/", protectedRoute, (req, res) => {
   AppointmentBookings.find({ UserId: req.session.user._id })
     .then((docs) => {
       console.log(docs);
-      res.sendStatus(200).send(docs);
+      res.status(200).send(docs);
       console.log(docs);
     })
     .catch((err) => res.status(500).send("Some Internal Error Occured"));
